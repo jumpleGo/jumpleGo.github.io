@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+</head>
+
+<body>
+
+    <section class="main-section">
+        <div class="main-section_img">
+            <img class="main-section_img_img-selector" src="images/bg1.png" alt="">
+        </div>
+        <div class="main-section_btn">
+            <span class="main-section_btn_span-selector">Add new order</span>
+            <p class="main-section_btn_btn-selector add_btn" href=""></p>
+        </div>
+
+    </section>
+
+
+    <div class="payments-info">
+        <div class="payments-info_text"><span>This month</span></div>
+        <div class="payments-info_money"><span>$ 4 351</span></div>
+    </div>
+    <div class="today-info">
+        <div class="today-info_text"><span>Today</span></div>
+        <div class="today-info_money"><span>+ 4 351$</span></div>
+    </div>
+
+    <div class="orders">
+        <div class="info_pack">
+            <div class="info_pack_img"><img style="width: 30px;
+        height: 30px;" src="images/Litecoin.png" alt=""></div>
+            <div class="info_pack_text"><span>Litecoin</span></div>
+            <div class="info_pack_money"><span>+ 63$</span></div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add new Order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="js-es5/script.js"></script>
+    <script>
+        function addTodoItem() {
+            let src = 'Litecoin.png';
+            let cryptoname = 'Litecoin';
+            let income = " 63";
+            $(".orders").append(
+                "<div class='info_pack'> <div class='info_pack_img'>" +
+                " <img style='width: 30px;height:30px;'" +
+                " src='images/" + src + " \'>" + "</div><div" + " class='info_pack_text'" +
+                "> <span>" +
+                cryptoname +
+                "</span></div><div" + " class='info_pack_money'> <span> + " +
+                income +
+                "$ </span></div></div>");
+
+
+        }
+        $(function() {
+
+            $(".add_btn").on('click', function(e) {
+                e.preventDefault();
+                addTodoItem()
+            })
+        });
+
+    </script>
+
+</body>
+
+</html>
