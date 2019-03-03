@@ -3,6 +3,12 @@ body {
   padding: 0;
   font-family: 'Lato', sans-serif; }
 
+.main-carousel {
+  height: 70px; }
+
+.carousel-cell-img {
+  height: 70px; }
+
 .main-section {
   display: -webkit-box;
   display: -webkit-flex;
