@@ -4,10 +4,11 @@ body {
   font-family: 'Lato', sans-serif; }
 
 .main-carousel {
-  height: 70px; }
+  height: 50px; }
 
 .carousel-cell-img {
-  height: 70px; }
+  height: 50px;
+  cursor: pointer !important; }
 
 .main-section {
   display: -webkit-box;

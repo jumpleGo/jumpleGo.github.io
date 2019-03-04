@@ -1,20 +1,22 @@
 "use strict";
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 $(function () {
+  var src;
   $(".add_btn").on('click', function (e) {
-    var src = $('.img').val();
     var cryptoname = $('.price').val();
     var income = $('.name').val();
     e.preventDefault();
-    $(".orders").append("<div class='info_pack'> <div class='info_pack_img'>" + " <img style='width: 30px;height:30px;'" + " src='images/" + src + " \'>" + "</div><div" + " class='info_pack_text'" + "> <span>" + cryptoname + "</span></div><div" + " class='info_pack_money'> <span> + " + income + "$ </span></div></div>");
+    $(".orders").append("<div class='info_pack'> <div class='info_pack_img'>" + " <img style='width: 30px;height:30px;'" + " src='" + src + " \'>" + "</div><div" + " class='info_pack_text'" + "> <span>" + cryptoname + "</span></div><div" + " class='info_pack_money'> <span> + " + income + "$ </span></div></div>");
+  });
+  $('img').click(function () {
+    src = $(this).attr('src');
+    console.log(src);
   });
 });
-$('.main-carousel').flickity(_defineProperty({
-  freeScroll: true,
-  contain: true,
+$('.main-carousel').flickity({
+  groupCells: true,
   prevNextButtons: false,
   pageDots: false,
-  cellAlign: 'left'
-}, "contain", true));
+  cellAlign: 'center',
+  contain: true
+});
