@@ -1,17 +1,50 @@
+@import 'btns';
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
 }
 
+.modal {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.modal {
+
+    z-index: 101;
+    background-color: #ffffff;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0s 0.5s;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s;
+}
+
 .main-carousel {
-    height: 50px;
+
     padding: 10px;
 
 }
 
+h2 {
+    padding: 20px;
+}
+
 .carousel-cell-img {
     height: 50px;
+    padding: 5px;
     cursor: pointer !important;
 
 
@@ -158,4 +191,38 @@ body {
     &_money {
         font-weight: bold;
     }
+}
+
+.inputs {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+
+
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #CCC;
+    color: #555;
+    box-sizing: border-box;
+    font-size: 18px;
+    height: 40px;
+    padding: 10px 0px;
+    position: relative;
+    width: 90%;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+input::-webkit-input-placeholder {
+    color: #AAA;
 }

@@ -1,0 +1,31 @@
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+
+
+    &_left {
+        border: 3px solid #e5e5e5;
+        padding: 10px 40px;
+        font-size: 17px;
+        text-decoration: none;
+        border-radius: 81px 81px 137px 137px / 61px 61px 100px 100px;
+        text-transform: uppercase;
+        color: black;
+        background: #e5e5e5;
+    }
+
+    &_right {
+
+        border: 3px solid #1e3c72;
+        padding: 10px 40px;
+        font-size: 17px;
+        text-decoration: none;
+        border-radius: 137px 137px 81px 81px / 100px 100px 61px 61px;
+        text-transform: uppercase;
+        color: white;
+        background: #1e3c72;
+
+    }
+}

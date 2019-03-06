@@ -5,11 +5,15 @@
     <meta charset="UTF-8">
     <title></title>
 
-    <link rel="stylesheet" href="css/main.css">
 
+
+
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -47,32 +51,58 @@
         </div>
     </div>
 
-    <input type="text" class="price1">
-    <input type="text" class="colvo1">
-    <input type="text" class="price2">
-    <input type="text" class="colvo2">
-    <div class="main-carousel">
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/LTC.png" alt=""></div>
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/BTC.png" alt=""></div>
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/dash.png" alt=""></div>
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/NEO.png" alt=""></div>
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/XRP.png" alt=""></div>
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/BCH.png" alt=""></div>
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/BNB.png" alt=""></div>
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/EOS.png" alt=""></div>
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/ETC.png" alt=""></div>
-        <div class="carousel-cell"><img class="carousel-cell-img" src="images/ETH.png" alt=""></div>
 
+    <section class="modal">
 
-    </div>
+        <h2>Construct your order</h2>
+        <div class="main-carousel">
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/LTC.png" alt=""></div>
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/BTC.png" alt=""></div>
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/dash.png" alt=""></div>
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/NEO.png" alt=""></div>
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/XRP.png" alt=""></div>
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/BCH.png" alt=""></div>
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/BNB.png" alt=""></div>
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/EOS.png" alt=""></div>
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/ETC.png" alt=""></div>
+            <div class="carousel-cell"><img class="carousel-cell-img" src="images/ETH.png" alt=""></div>
+        </div>
 
+        <div class="inputs">
+            <div class="group">
+                <input type="text" class="input price1" placeholder="Buy price">
+                <input type="text" class="input colvo1" placeholder="Total">
+            </div>
+            <div class="group">
+                <input type="text" class="input price2" placeholder="Sell price">
+                <input type="text" class="input colvo2" placeholder="Total">
+            </div>
+        </div>
+
+        <div class="buttons">
+            <span class="buttons_left">cancel</span>
+            <span class="buttons_right">add</span>
+        </div>
+    </section>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script>
+        $('.main-carousel').flickity({
+            groupCells: true,
+            prevNextButtons: false,
+            pageDots: false,
+            cellAlign: 'center',
+            contain: true
+        });
 
+    </script>
 
     <script src="js-es5/script.js"></script>
+    <script>
 
+
+    </script>
 
 </body>
 

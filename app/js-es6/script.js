@@ -1,7 +1,10 @@
 $(function () {
     let src;
     let cryptoname;
-    $(".add_btn").on('click', function (e) {
+
+
+
+    $(".buttons_right").on('click', function (e) {
 
         let price1 = $('.price1').val();
         let price2 = $('.price2').val();
@@ -20,10 +23,18 @@ $(function () {
             "</span></div></div><div" + " class='info_pack_money'> <span>  " +
             income +
             "$ </span></div></div>");
+        $('.modal').removeClass('active');
+        e.preventDefault();
 
     });
     $('img').click(function () {
         src = $(this).attr('src');
+        $('.carousel-cell-img').hide();
+        $(this).css({
+            display: "block",
+
+        });
+
         switch (src) {
             case 'images/LTC.png':
                 cryptoname = "litecoin";
@@ -48,12 +59,16 @@ $(function () {
                 break;
 
         }
+        $(".main-carousel").append("<h3>You selected "
+            cryptoname "</h3>");
     });
 });
-$('.main-carousel').flickity({
-    groupCells: true,
-    prevNextButtons: false,
-    pageDots: false,
-    cellAlign: 'center',
-    contain: true
+
+$('.add_btn').click(function (e) {
+    $('.modal').addClass('active');
+    e.preventDefault();
+});
+$('.buttons_left').click(function (e) {
+    $('.modal').removeClass('active');
+
 });
