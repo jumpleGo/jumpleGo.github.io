@@ -21,7 +21,7 @@ gulp.task('babel', function () {
         .pipe(babel({
             presets: ['@babel/env']
         }))
-        .pipe(gulp.dest('app/js-es5'))
+        .pipe(gulp.dest('app/js-es5/'))
 });
 
 
