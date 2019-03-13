@@ -11,18 +11,31 @@
     var firestore = firebase.firestore();
 
     const docRef = firestore.doc('values/9fIV2BbJnUrcMmtmSOw3/collection/ehZezTz7fuzw9rWygN7z');
-    const sourse = document.querySelector('.carousel-cell-img').getAttribute('src');
+
     const button = document.querySelector('.buttons_right');
 
+    let source;
 
-    button.addEventListener("click", function name() {
+
+
+    $('img').click(function () {
+        source = $(this).attr('src');
+    });
+
+
+
+    button.addEventListener("click", function () {
         let cryptoname;
+        let income1;
+
+
         const price1 = document.querySelector('.price1').value;
         const price2 = document.querySelector('.price2').value;
         const total1 = document.querySelector('.colvo1').value;
         const total2 = document.querySelector('.colvo2').value;
         let income = (total2 * price2) - (price1 * total1);
-        switch (sourse) {
+        income1 = income.toFixed(2);
+        switch (source) {
             case 'images/LTC.png':
                 cryptoname = "litecoin";
                 break;
@@ -47,16 +60,17 @@
 
         }
         docRef.set({
-            income: income,
+            income: income1,
             priceBuy: price1,
             priceCell: price2,
             totalBuy: total1,
             totalCell: total2,
-            src: sourse,
+            src: source,
             cryptoname: cryptoname
         });
 
         $('.modal').removeClass('active');
+
         getRealTimeUpdates();
     });
     getRealTimeUpdates = function () {
@@ -78,6 +92,6 @@
     }
 
 
-
+    getRealTimeUpdates();
 
 }());
