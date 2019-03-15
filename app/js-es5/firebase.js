@@ -7,32 +7,77 @@
         storageBucket: "crypto782.appspot.com",
         messagingSenderId: "816239904802"
     };
+
+
+
+
+
+
+
+
+
     firebase.initializeApp(config);
-    var firestore = firebase.firestore();
+    let firestore = firebase.firestore();
+    const settings = {
+        timestampsInSnapshots: true
+    };
 
-    const docRef = firestore.doc('values/9fIV2BbJnUrcMmtmSOw3/collection/ehZezTz7fuzw9rWygN7z');
-
-    const button = document.querySelector('.buttons_right');
+    firestore.settings(settings);
 
     let source;
+    const docRef = firestore.doc('values/9fIV2BbJnUrcMmtmSOw3');
+    const button = document.querySelector('.buttons_right');
+
+    const orders = document.querySelector('.orders');
+
+    function renderOrder(doc) {
+
+        const div = document.createElement("div");
+        div.setAttribute('data-id', doc.id);
+
+        const divinfo = document.createElement("div");
+        divinfo.className = "info_pack";
+
+        const divrow = document.createElement("div");
+        divrow.className = "info_pack_row";
+
+        const divrowimg = document.createElement("div");
+        divrowimg.className = "info_pack_row_img";
+
+        const img = document.createElement("img");
+        img.style.width = "30px";
+        img.style.height = "30px";
+        img.src = doc.data().src;
+
+        const divrowtxt = document.createElement("div");
+        divrowtxt.className = "info_pack_text";
+        divrowtxt.textContent = doc.data().cryptoname;
+
+        const divpackmoney = document.createElement("div");
+        divpackmoney.className = "info_pack_money";
+        divpackmoney.textContent = doc.data().income;
 
 
-
-    $('img').click(function () {
-        source = $(this).attr('src');
-    });
-
+        const span = document.createElement('span');
+        span.textContent = "$";
+        divpackmoney.appendChild(span);
 
 
+        divrowimg.appendChild(img);
+        divrow.appendChild(divrowimg);
+        divrow.appendChild(divrowtxt);
+        divinfo.appendChild(divrow);
+        divinfo.appendChild(divpackmoney);
+        div.appendChild(divinfo);
+        orders.appendChild(div);
+    }
     button.addEventListener("click", function () {
         let cryptoname;
         let income1;
-
-
-        const price1 = document.querySelector('.price1').value;
-        const price2 = document.querySelector('.price2').value;
-        const total1 = document.querySelector('.colvo1').value;
-        const total2 = document.querySelector('.colvo2').value;
+        let price1 = document.querySelector('.price1').value;
+        let price2 = document.querySelector('.price2').value;
+        let total1 = document.querySelector('.colvo1').value;
+        let total2 = document.querySelector('.colvo2').value;
         let income = (total2 * price2) - (price1 * total1);
         income1 = income.toFixed(2);
         switch (source) {
@@ -57,41 +102,61 @@
             case 'images/BNB.png':
                 cryptoname = "binance coin";
                 break;
-
+            case 'images/EOS.png':
+                cryptoname = "EOS";
+                break;
+            case 'images/ADA.png':
+                cryptoname = "Cardano";
+                break;
+            case 'images/ETC.png':
+                cryptoname = "Ethereum Classic";
+                break;
+            case 'images/ETH.png':
+                cryptoname = "Ethereum ";
+                break;
         }
-        docRef.set({
-            income: income1,
+
+        firestore.collection('values').add({
+            cryptoname: cryptoname,
             priceBuy: price1,
             priceCell: price2,
             totalBuy: total1,
             totalCell: total2,
+            income: income1,
             src: source,
-            cryptoname: cryptoname
         });
-
+        price1 = "";
+        price2 = "";
+        cryptoname = "";
+        total1 = "";
+        total2 = "";
+        income1 = "";
+        source = "";
         $('.modal').removeClass('active');
 
-        getRealTimeUpdates();
+        function reload() {
+            location.reload();
+        }
+        setTimeout(reload, 500);
+        reload;
     });
-    getRealTimeUpdates = function () {
-        docRef.onSnapshot(function (doc) {
-            if (doc && doc.exists) {
-                const myData = doc.data();
 
-                document.querySelector(".orders").innerHTML =
-                    "  <div class='info_pack'> <div class='info_pack_row'>  <div class='info_pack_row_img'>" +
-                    " <img style='width: 30px;height:30px;'" +
-                    " src='" + myData.src + " \'>" + "</div><div" + " class='info_pack_row_text'" +
-                    "> <span>" +
-                    myData.cryptoname +
-                    "</span></div></div><div" + " class='info_pack_money'> <span>  " +
-                    myData.income +
-                    "$ </span></div></div>";
-            }
+
+    window.onload = function name() {
+
+        firestore.collection('values').get().then(snapshot => {
+            snapshot.docs.forEach(doc => {
+                renderOrder(doc);
+            })
         });
     }
 
 
-    getRealTimeUpdates();
+    $('img').click(function () {
+        source = $(this).attr('src');
+    });
+
+
+
 
 }());
