@@ -31,14 +31,18 @@
     </section>
 
 
+
     <div class="payments-info">
         <div class="payments-info_text"><span>This month</span></div>
         <div class="payments-info_money"><span>$ 4 351</span></div>
     </div>
-    <div class="today-info">
-        <div class="today-info_text"><span>Today</span></div>
-        <div class="today-info_money"></div>
-    </div>
+
+    <!--
+<div class="today-info">
+    <div class="today-info_text"><span>Today</span></div>
+    <div class="today-info_money"></div>
+</div>
+-->
 
     <div class="orders">
 
@@ -87,6 +91,49 @@
         </div>
     </section>
 
+    <section class="modal1">
+        <div class="main_blck_order_toolbar">
+            <img style="width: 25px;
+            height: 25px;" src="images/left-arrow.png" class="back" alt="">
+        </div>
+        <section class="main_block_order">
+
+            <div class="main_block_order_crypto">
+                <img style="width: 40px;height: 40px;padding-right: 20px;" src="" class="block_order_img" alt="">
+                <div class="spans"><span class="small_cryptoname">ETH</span><span class="cryptoname">Ethereum</span></div>
+            </div>
+            <div class="main_block_order_income income">
+                <span class="order_income"></span>
+            </div>
+            <div class="main_block_order_percent percent">
+                + 49%
+                &#8593;
+            </div>
+        </section>
+
+
+        <section class="center_block_order">
+            <h2>Order Info</h2>
+
+            <div class="center_block_order_details">
+                <p>total Buy:</p>
+                <p class="totalBuy"></p>
+            </div>
+            <div class="center_block_order_details">
+                <p>total Sell:</p>
+                <p class="totalSell"></p>
+            </div>
+            <div class="center_block_order_details">
+                <p>price Buy:</p>
+                <p class="priceBuy"></p>
+            </div>
+            <div class="center_block_order_details">
+                <p>price Sell:</p>
+                <p class="priceSell income"></p>
+            </div>
+        </section>
+    </section>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script>
@@ -104,12 +151,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-firestore.js"></script>
-    <script>
 
-
-    </script>
-    <script src="js-es5/firebase.js"></script>
     <script src="js-es5/script.js"></script>
+    <script src="js-es5/firebase.js"></script>
 </body>
 
 </html>
