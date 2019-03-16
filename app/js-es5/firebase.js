@@ -63,14 +63,27 @@
         divpackmoney.appendChild(span);
 
 
+
         divrowimg.appendChild(img);
-        divrow.appendChild(divrowimg);
         divrow.appendChild(divrowtxt);
+        divrow.appendChild(divpackmoney);
+        divinfo.appendChild(divrowimg);
         divinfo.appendChild(divrow);
-        divinfo.appendChild(divpackmoney);
         div.appendChild(divinfo);
         orders.appendChild(div);
+
+
+
     }
+
+
+
+
+
+
+
+
+
     button.addEventListener("click", function () {
         let cryptoname;
         let income1;
@@ -114,7 +127,35 @@
             case 'images/ETH.png':
                 cryptoname = "Ethereum ";
                 break;
+            case 'images/bsv.png':
+                cryptoname = "Bitcoin SV ";
+                break;
+            case 'images/DOGE.png':
+                cryptoname = "Doge Coin ";
+                break;
+            case 'images/GNT.png':
+                cryptoname = "Golem ";
+                break;
+            case 'images/OMG.png':
+                cryptoname = "OmiseGo ";
+                break;
+            case 'images/QTUM.png':
+                cryptoname = "QTUM ";
+                break;
+            case 'images/WAVES.png':
+                cryptoname = "WAVES ";
+                break;
+            case 'images/XEM.png':
+                cryptoname = "XEM ";
+                break;
+            case 'images/XLM.png':
+                cryptoname = "Stellar Lumens ";
+                break;
+            case 'images/XMR.png':
+                cryptoname = "Monero ";
+                break;
         }
+
 
         firestore.collection('values').add({
             cryptoname: cryptoname,
@@ -138,11 +179,12 @@
             location.reload();
         }
         setTimeout(reload, 500);
-        reload;
+
+
     });
 
 
-    window.onload = function name() {
+    window.onload = function () {
 
         firestore.collection('values').get().then(snapshot => {
             snapshot.docs.forEach(doc => {

@@ -32,7 +32,7 @@ gulp.task('browser-sync', function () {
             baseDir: 'app/',
         },
         notify: false,
-        tunnel: true
+
     });
 });
 
