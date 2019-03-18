@@ -268,10 +268,10 @@ input::-webkit-input-placeholder {
         padding: 10px;
     }
 
+
+
     &_percent {
         padding: 5px 15px;
-        color: #20d36f;
-        background: #e9f5f0;
 
         font-size: 18px;
     }
@@ -309,4 +309,20 @@ input::-webkit-input-placeholder {
 
 .center_block_order_details p {
     margin: 10px;
+}
+
+.green {
+
+    color: #20d36f;
+    background: #e9f5f0;
+}
+
+.red {
+    background: rgba(217, 32, 32, 0.19);
+    color: #771630;
+}
+
+.gray {
+    background: #dedede;
+    color: #585858;
 }

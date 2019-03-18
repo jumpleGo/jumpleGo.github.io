@@ -21,11 +21,22 @@
 
 
     let source;
+    $('img').click(function () {
+        source = $(this).attr('src');
+    });
+
     const docRef = firestore.doc('values/9fIV2BbJnUrcMmtmSOw3');
     const button = document.querySelector('.buttons_right');
     const orders = document.querySelector('.orders');
 
+    function calcIncome() {
+
+    }
+
     function renderOrder(doc) {
+        //        const payments_info = document.querySelector('.array');
+        //        payments_info.textContent = doc.data().list;
+
         const div = document.createElement("div");
         div.setAttribute('data-id', doc.id);
         div.className = 'data';
@@ -55,7 +66,6 @@
         const span = document.createElement('span');
         span.textContent = "$";
         divpackmoney.appendChild(span);
-
         divrowimg.appendChild(img);
         divrow.appendChild(divrowtxt);
         divrow.appendChild(divpackmoney);
@@ -69,17 +79,24 @@
 
 
 
-
     button.addEventListener("click", function () {
         let smallCryptoname;
         let cryptoname;
         let income1;
+        let percent1;
         let price1 = document.querySelector('.price1').value;
         let price2 = document.querySelector('.price2').value;
         let total1 = document.querySelector('.colvo1').value;
         let total2 = document.querySelector('.colvo2').value;
         let income = (total2 * price2) - (price1 * total1);
+        let percent = (income * 100) / (total1 * price1);
+
+
+        percent1 = percent.toFixed(1);
         income1 = income.toFixed(2);
+
+
+
         switch (source) {
             case 'images/LTC.png':
                 cryptoname = "Litecoin";
@@ -163,7 +180,10 @@
                 break;
         }
 
-
+        //        let arrRef = firestore.collection('array').doc('arr');
+        //        var arrUnion = arrRef.update({
+        //            list: admin.firestore.FieldValue.arrayUnion(income),
+        //        });
         firestore.collection('values').add({
             cryptoname: cryptoname,
             priceBuy: price1,
@@ -173,6 +193,8 @@
             income: income1,
             src: source,
             smallCryptoname: smallCryptoname,
+            percent: percent1,
+
 
         });
         price1 = "";
@@ -187,17 +209,19 @@
 
 
     $(document).on('click', '.data', function () {
+        const back = document.querySelector('.back');
         const name = document.querySelector('.name');
         const totalBuy = document.querySelector('.totalBuy');
         const totalSell = document.querySelector('.totalSell');
         const priceBuy = document.querySelector('.priceBuy');
         const priceSell = document.querySelector('.priceSell');
         const income = document.querySelector('.income');
-        const percent = document.querySelector('.percent');
+        const percent_text = document.querySelector('.percent');
         const order_img = document.querySelector('.block_order_img');
         const small_cryptoname = document.querySelector('.small_cryptoname');
         const cryptoname = document.querySelector('.cryptoname');
         const orderincome = document.querySelector('.order_income');
+        const payments_info = document.querySelector('.array');
         let data = $(this).attr('data-id');
         let docRef = firestore.doc('values/' + data);
 
@@ -216,15 +240,32 @@
                     priceSell.textContent = myData.priceCell + "$";
                     order_img.src = myData.src;
                     orderincome.textContent = myData.income;
-
-
-
+                    percent_text.textContent = myData.percent;
                 }
-
+                let data = percent_text.innerHTML;
+                parseInt(data);
+                if (data > 0) {
+                    $('.percent').prepend("+");
+                    $('.main_block_order_percent').addClass('green');
+                } else if (data == 0) {
+                    $('.main_block_order_percent').addClass('gray');
+                } else {
+                    $('.main_block_order_percent').addClass('red');
+                }
             });
         }
+        back.addEventListener('click', function () {
+            $('.main_block_order_percent').removeClass('red');
+            $('.main_block_order_percent').removeClass('gray');
+            $('.main_block_order_percent').removeClass('green');
+
+        });
         output_data();
+
+
+
         firestore.collection('values').doc(data).update({
+
 
         });
     });
@@ -232,14 +273,13 @@
 
 
 
-    $('img').click(function () {
-        source = $(this).attr('src');
-    });
 
     firestore.collection('values').onSnapshot(snapshot => {
         let changes = snapshot.docChanges();
         changes.forEach(change => {
             if (change.type == 'added') {
+                renderOrder(change.doc);
+            } else if (change.type == 'modified') {
                 renderOrder(change.doc);
             }
         });
