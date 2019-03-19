@@ -18,7 +18,7 @@
 
 
 
-
+    let myD;
 
     let source;
     $('img').click(function () {
@@ -28,15 +28,28 @@
     const docRef = firestore.doc('values/9fIV2BbJnUrcMmtmSOw3');
     const button = document.querySelector('.buttons_right');
     const orders = document.querySelector('.orders');
+    const payments_info = document.querySelector('.array');
 
-    function calcIncome() {
 
+    function calc() {
+        var totalIncome = 0;
+        firestore.collection("values").get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                totalIncome += doc.data().income;
+            });
+
+            payments_info.textContent = totalIncome;
+            $('.array').prepend('$');
+        });
     }
 
-    function renderOrder(doc) {
-        //        const payments_info = document.querySelector('.array');
-        //        payments_info.textContent = doc.data().list;
+    window.onload = function () {
+        calc();
+    };
 
+
+
+    function renderOrder(doc) {
         const div = document.createElement("div");
         div.setAttribute('data-id', doc.id);
         div.className = 'data';
@@ -77,8 +90,6 @@
 
 
 
-
-
     button.addEventListener("click", function () {
         let smallCryptoname;
         let cryptoname;
@@ -94,7 +105,7 @@
 
         percent1 = percent.toFixed(1);
         income1 = income.toFixed(2);
-
+        let income2 = parseFloat(income1);
 
 
         switch (source) {
@@ -184,18 +195,18 @@
         //        var arrUnion = arrRef.update({
         //            list: admin.firestore.FieldValue.arrayUnion(income),
         //        });
+
+
         firestore.collection('values').add({
             cryptoname: cryptoname,
             priceBuy: price1,
             priceCell: price2,
             totalBuy: total1,
             totalCell: total2,
-            income: income1,
+            income: income2,
             src: source,
             smallCryptoname: smallCryptoname,
             percent: percent1,
-
-
         });
         price1 = "";
         price2 = "";
@@ -279,8 +290,7 @@
         changes.forEach(change => {
             if (change.type == 'added') {
                 renderOrder(change.doc);
-            } else if (change.type == 'modified') {
-                renderOrder(change.doc);
+                calc();
             }
         });
     });
