@@ -18,7 +18,8 @@
 
 
 
-    let myD;
+
+
 
     let source;
     $('img').click(function () {
@@ -31,6 +32,7 @@
     const payments_info = document.querySelector('.array');
 
 
+
     function calc() {
         var totalIncome = 0;
         firestore.collection("values").get().then(function (querySnapshot) {
@@ -39,12 +41,15 @@
             });
 
             payments_info.textContent = totalIncome;
-            $('.array').prepend('$');
+            $('.array').append('$');
         });
     }
 
     window.onload = function () {
         calc();
+
+
+
     };
 
 
@@ -86,6 +91,8 @@
         divinfo.appendChild(divrow);
         div.appendChild(divinfo);
         orders.appendChild(div);
+
+
     }
 
 
@@ -189,6 +196,10 @@
                 cryptoname = "Monero ";
                 smallCryptoname = "MNR";
                 break;
+            case 'images/ZEC.png':
+                cryptoname = "ZCash ";
+                smallCryptoname = "ZEC";
+                break;
         }
 
         //        let arrRef = firestore.collection('array').doc('arr');
@@ -207,6 +218,10 @@
             src: source,
             smallCryptoname: smallCryptoname,
             percent: percent1,
+            time: firebase.firestore.FieldValue.serverTimestamp(),
+
+
+
         });
         price1 = "";
         price2 = "";
@@ -216,6 +231,7 @@
         income1 = "";
         source = "";
         $('.modal').removeClass('active');
+
     });
 
 
@@ -239,10 +255,8 @@
 
         function output_data() {
             docRef.get().then(function (doc) {
-
                 if (doc && doc.exists) {
                     let myData = doc.data();
-
                     small_cryptoname.textContent = myData.smallCryptoname;
                     cryptoname.textContent = myData.cryptoname;
                     totalBuy.textContent = myData.totalBuy;
@@ -272,13 +286,6 @@
 
         });
         output_data();
-
-
-
-        firestore.collection('values').doc(data).update({
-
-
-        });
     });
 
 
@@ -291,9 +298,12 @@
             if (change.type == 'added') {
                 renderOrder(change.doc);
                 calc();
+
             }
         });
     });
+
+
 
 
 }());
