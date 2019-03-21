@@ -37,6 +37,7 @@
         var totalIncome = 0;
         firestore.collection("values").get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
+                totalIncome = parseInt(totalIncome);
                 totalIncome += doc.data().income;
             });
 
@@ -46,10 +47,8 @@
     }
 
     window.onload = function () {
+
         calc();
-
-
-
     };
 
 
@@ -201,11 +200,6 @@
                 smallCryptoname = "ZEC";
                 break;
         }
-
-        //        let arrRef = firestore.collection('array').doc('arr');
-        //        var arrUnion = arrRef.update({
-        //            list: admin.firestore.FieldValue.arrayUnion(income),
-        //        });
 
 
         firestore.collection('values').add({
