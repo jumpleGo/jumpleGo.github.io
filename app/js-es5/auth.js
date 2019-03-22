@@ -20,6 +20,14 @@
          promise.then(user => console.log(user)).catch(e => console.log(e.message));
      });
 
+     auth.onAuthStateChanged(function (user) {
+         if (user) {
+             console.log('user log in')
+         } else {
+             console.log('user log out')
+         }
+     });
+
  }();
 
  function logOut() {
