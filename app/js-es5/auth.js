@@ -21,3 +21,10 @@
      });
 
  }();
+
+ function logOut() {
+     const auth = firebase.auth();
+     auth.signOut().then(() => {
+         console.log("user signed Out")
+     });
+ }
