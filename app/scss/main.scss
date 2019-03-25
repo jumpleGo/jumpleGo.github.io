@@ -11,9 +11,14 @@ body {
 
 
 
+.registration:hover {
+    cursor: pointer;
+}
 
 .modal,
-.modal1 {
+.modal1,
+.modal2,
+.modal3 {
     position: absolute;
     top: 0;
     left: 0;
@@ -27,6 +32,18 @@ body {
 }
 
 .modal1.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s;
+}
+
+.modal2.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s;
+}
+
+.modal3.active {
     opacity: 1;
     visibility: visible;
     transition: opacity 0.5s;
@@ -62,18 +79,27 @@ h2 {
     flex-direction: column;
 
 
-    &_img {
+    &_p {
+        padding: 0px 10px;
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.17);
 
-        &_img-selector {
-            width: 80%;
-            height: 30%;
-            box-shadow: 0px 0px 10px 0px rgba(53, 51, 196, 1);
-            border-radius: 10px;
-            margin-top: 10px;
+        p:first-child {
+            margin-left: 0px;
         }
+
+        p {
+            margin-left: 10px;
+        }
+
+        .reg {
+
+            display: flex;
+            flex-direction: row;
+        }
+
     }
 
     &_btn {
@@ -168,7 +194,9 @@ h2 {
     }
 }
 
-.orders {}
+.orders {
+    max-height: 50vh;
+}
 
 .info_pack {
     display: flex;
@@ -325,4 +353,51 @@ input::-webkit-input-placeholder {
 .gray {
     background: #dedede;
     color: #585858;
+}
+
+.formDiv {
+    margin-bottom: 15px;
+    width: 90%;
+    margin-left: 5%;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        background: #f4f4f4;
+        border: none;
+        padding: 10px;
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 16px;
+        color: #444;
+        position: relative;
+        font-family: 'Lato', sans-serif;
+    }
+
+
+
+    input[type="submit"] {
+        width: 100%;
+        box-sizing: border-box;
+        background: rgba(24, 39, 209, 0.88);
+        box-shadow: 0px 0px 10px 0px rgba(53, 51, 196, 1);
+        border: none;
+        color: #fff;
+        font-size: 14px;
+        padding: 10px 0;
+        border-radius: 3px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s ease;
+        font-family: 'Lato', sans-serif;
+
+
+    }
 }

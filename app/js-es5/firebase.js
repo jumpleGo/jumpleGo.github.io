@@ -15,22 +15,24 @@
     };
     firestore.settings(settings);
 
-
-
-
-
-
-
+    const auth = firebase.auth();
+    const mail = document.querySelector(".mail");
+    const mail1 = document.querySelector(".mail1");
+    const pass = document.querySelector(".pass");
+    const pass1 = document.querySelector(".pass1");
+    const btnLogin = document.querySelector(".login-button");
+    const btnSignIn = document.querySelector(".signin-button");
+    const btnLogout = document.querySelector(".logout");
+    const orders = document.querySelector('.orders');
+    const button = document.querySelector('.buttons_right');
+    const payments_info = document.querySelector('.array');
     let source;
+
+
+
     $('img').click(function () {
         source = $(this).attr('src');
     });
-
-    const docRef = firestore.doc('values/9fIV2BbJnUrcMmtmSOw3');
-    const button = document.querySelector('.buttons_right');
-    const orders = document.querySelector('.orders');
-    const payments_info = document.querySelector('.array');
-
 
 
     function calc() {
@@ -40,20 +42,18 @@
                 totalIncome = parseInt(totalIncome);
                 totalIncome += doc.data().income;
             });
-
             payments_info.textContent = totalIncome;
             $('.array').append('$');
         });
     }
 
-    window.onload = function () {
 
-        calc();
-    };
-
-
+    //    window.onload = function () {
+    //        calc();
+    //    };
 
     function renderOrder(doc) {
+
         const div = document.createElement("div");
         div.setAttribute('data-id', doc.id);
         div.className = 'data';
@@ -92,7 +92,11 @@
         orders.appendChild(div);
 
 
+
     }
+
+
+
 
 
 
@@ -286,18 +290,85 @@
 
 
 
-    firestore.collection('values').onSnapshot(snapshot => {
-        let changes = snapshot.docChanges();
-        changes.forEach(change => {
-            if (change.type == 'added') {
-                renderOrder(change.doc);
-                calc();
 
-            }
+
+
+
+    btnLogin.addEventListener('click', function (e) {
+        let email = mail.value;
+        let password = pass.value;
+        const promise = auth.createUserWithEmailAndPassword(email, password).then(cred => {
+
+            $('.modal2').removeClass('active');
+            e.preventDefault();
+
+        });
+        promise.then(user => console.log(user)).catch(e => console.log(e.message));
+    });
+
+
+    btnSignIn.addEventListener("click", function (e) {
+        let email = mail1.value;
+        let password = pass1.value;
+        const promise = auth.signInWithEmailAndPassword(email, password).then(cred => {
+            $('.modal3').removeClass('active');
+            e.preventDefault();
+        });
+        promise.catch(e => console.log(e.message));
+        console.log('user signed in')
+    });
+    btnLogout.addEventListener("click", function (e) {
+        auth.signOut().then(() => {
+            console.log("user signed Out");
+
         });
     });
 
 
+
+    const add_btn = document.querySelector('.main-section_btn');
+    const inlog = document.querySelectorAll('.inlog');
+    const logout = document.querySelector('.logout');
+    const info_text = document.querySelector('.payments-info_text');
+    const user_info = document.querySelector('.user_info');
+    const setupUI = (user) => {
+        if (user) {
+            user_info.textContent = user.email;
+            $('.user_info').prepend()
+            inlog.forEach(item => item.style.display = 'none');
+            logout.style.display = "block";
+            add_btn.style.display = "flex";
+            info_text.style.display = "flex";
+        } else {
+            inlog.forEach(item => item.style.display = 'block');
+            logout.style.display = "none";
+            add_btn.style.display = "none";
+            info_text.style.display = "none";
+        }
+    }
+
+
+
+    auth.onAuthStateChanged(function (user) {
+        if (user) {
+            setupUI(user);
+            firestore.collection('values').onSnapshot(snapshot => {
+                let changes = snapshot.docChanges();
+                changes.forEach(change => {
+                    if (change.type == 'added') {
+                        renderOrder(change.doc);
+                        calc();
+
+                    }
+                });
+            });
+
+        } else {
+            console.log('user log out');
+            setupUI();
+
+        }
+    });
 
 
 }());
