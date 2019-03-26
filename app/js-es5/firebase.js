@@ -298,12 +298,16 @@
         let email = mail.value;
         let password = pass.value;
         const promise = auth.createUserWithEmailAndPassword(email, password).then(cred => {
+            return firestore.collection('users').doc(cred.user.uid).set({
+                mail: mail.value
+            });
 
+
+        }).then(() => {
             $('.modal2').removeClass('active');
             e.preventDefault();
-
         });
-        promise.then(user => console.log(user)).catch(e => console.log(e.message));
+
     });
 
 
@@ -331,19 +335,26 @@
     const logout = document.querySelector('.logout');
     const info_text = document.querySelector('.payments-info_text');
     const user_info = document.querySelector('.user_info');
+    const money = document.querySelector('.array');
     const setupUI = (user) => {
         if (user) {
             user_info.textContent = user.email;
-            $('.user_info').prepend()
+            $('.user_info').prepend('<img style="width:25px;height:25px;padding:5px" src="images/user.png"/>')
             inlog.forEach(item => item.style.display = 'none');
             logout.style.display = "block";
             add_btn.style.display = "flex";
             info_text.style.display = "flex";
+            orders.style.display = "block";
+            user_info.style.display = "flex";
+            money.style.display = "flex";
         } else {
             inlog.forEach(item => item.style.display = 'block');
             logout.style.display = "none";
             add_btn.style.display = "none";
             info_text.style.display = "none";
+            orders.style.display = "none";
+            user_info.style.display = "none";
+            money.style.display = "none";
         }
     }
 
