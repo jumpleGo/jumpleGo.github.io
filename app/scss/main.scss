@@ -1,12 +1,26 @@
 @import 'btns';
 
+#preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    background: #333 url('//cdnjs.cloudflare.com/ajax/libs/file-uploader/3.7.0/processing.gif') no-repeat center center;
+}
 
 
 body {
+    height: 100vh;
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
 }
+
+
+
 
 
 
@@ -18,7 +32,8 @@ body {
 .modal,
 .modal1,
 .modal2,
-.modal3 {
+.modal3,
+.modal4 {
     position: absolute;
     top: 0;
     left: 0;
@@ -49,6 +64,12 @@ body {
     transition: opacity 0.5s;
 }
 
+.modal4.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s;
+}
+
 .modal.active {
     opacity: 1;
     visibility: visible;
@@ -72,6 +93,8 @@ h2 {
 
 
 }
+
+
 
 .main-section {
 
@@ -204,8 +227,47 @@ h2 {
 }
 
 .orders {
+
     overflow-y: scroll;
     max-height: 50vh;
+
+}
+
+.demo {
+    display: none;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+}
+
+.lgn {
+    color: #ffffff;
+    font-size: 18px;
+    background: rgba(24, 39, 209, 0.88);
+    padding: 9px 25px;
+    border: none;
+    box-shadow: 0px 0px 10px 0px rgba(53, 51, 196, 1);
+}
+
+.intro {
+    margin-top: 20px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-size: 18px;
+    background: rgba(209, 124, 24, 0.88);
+    padding: 9px 25px;
+    border: none;
+    box-shadow: 0px 0px 10px 0px rgb(196, 101, 51);
 }
 
 .info_pack {
@@ -244,6 +306,7 @@ h2 {
     padding: 20px;
     display: flex;
     flex-direction: row;
+    justify-content: space-aroundf;
 
 
 }
@@ -408,6 +471,25 @@ input::-webkit-input-placeholder {
         transition: 0.3s ease;
         font-family: 'Lato', sans-serif;
 
+
+    }
+}
+
+@media screen and(min-width:700px) {
+    .demo {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+
+        img {
+            width: 40%;
+            height: 40%;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
 
     }
 }

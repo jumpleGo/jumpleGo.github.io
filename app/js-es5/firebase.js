@@ -7,39 +7,35 @@
         storageBucket: "crypto782.appspot.com",
         messagingSenderId: "816239904802"
     };
-
     firebase.initializeApp(config);
     let firestore = firebase.firestore();
     const settings = {
         timestampsInSnapshots: true
     };
     firestore.settings(settings);
-
+    const add_btn = document.querySelector('.main-section_btn');
+    const inlog = document.querySelectorAll('.inlog');
+    const logout = document.querySelector('.logout');
+    const info_text = document.querySelector('.payments-info_text');
+    const user_info = document.querySelector('.user_info');
+    const money = document.querySelector('.array');
+    const block_main = document.querySelector('.main-section_p');
+    const demo = document.querySelector('.demo');
+    const orders = document.querySelector('.orders');
     const auth = firebase.auth();
-    const mail = document.querySelector(".mail");
-    const mail1 = document.querySelector(".mail1");
-    const pass = document.querySelector(".pass");
-    const pass1 = document.querySelector(".pass1");
     const btnLogin = document.querySelector(".login-button");
     const btnSignIn = document.querySelector(".signin-button");
     const btnLogout = document.querySelector(".logout");
-    const orders = document.querySelector('.orders');
     const button = document.querySelector('.buttons_right');
-    const payments_info = document.querySelector('.array');
     let source;
 
-
-
-    $('img').click(function () {
-        source = $(this).attr('src');
-    });
-
-
     function calc() {
+        var user = firebase.auth().currentUser;
+        const payments_info = document.querySelector('.array');
         var totalIncome = 0;
-        firestore.collection("values").get().then(function (querySnapshot) {
+        firestore.collection("users").doc(user.uid).collection('orders').get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
-                totalIncome = parseInt(totalIncome);
+                totalIncome = parseFloat(totalIncome);
                 totalIncome += doc.data().income;
             });
             payments_info.textContent = totalIncome;
@@ -48,12 +44,9 @@
     }
 
 
-    //    window.onload = function () {
-    //        calc();
-    //    };
+
 
     function renderOrder(doc) {
-
         const div = document.createElement("div");
         div.setAttribute('data-id', doc.id);
         div.className = 'data';
@@ -90,16 +83,67 @@
         divinfo.appendChild(divrow);
         div.appendChild(divinfo);
         orders.appendChild(div);
-
-
-
     }
 
+    ! function () {
+
+        const setupUI = (user) => {
+            if (user) {
+                user_info.textContent = user.email;
+                $('.user_info').prepend('<img style="width:25px;height:25px;padding:5px" src="images/user.png"/>')
+                //                inlog.forEach(item => item.style.display = 'none');
+                demo.style.display = 'none';
+                logout.style.display = "block";
+                block_main.style.display = "flex";
+                add_btn.style.display = "flex";
+                info_text.style.display = "flex";
+                orders.style.display = "block";
+                user_info.style.display = "flex";
+                money.style.display = "flex";
+            } else {
+
+                //                inlog.forEach(item => item.style.display = 'block');
+                demo.style.display = 'flex';
+                logout.style.display = "none";
+                block_main.style.display = "none";
+                add_btn.style.display = "none";
+                info_text.style.display = "none";
+                orders.style.display = "none";
+                user_info.style.display = "none";
+                money.style.display = "none";
+            }
+        }
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                setupUI(user);
+                firestore.collection('users').doc(user.uid).collection('orders').onSnapshot(snapshot => {
+                    let changes = snapshot.docChanges();
+                    changes.forEach(change => {
+                        if (change.type == 'added') {
+                            renderOrder(change.doc);
+                            calc();
+
+                        }
+                    });
+                });
+
+            } else {
+                console.log('user log out');
+                setupUI();
+
+            }
+        });
+    }();
 
 
 
 
 
+
+
+
+
+    //нажатие на кнопку добавить ордер
     button.addEventListener("click", function () {
         let smallCryptoname;
         let cryptoname;
@@ -112,11 +156,14 @@
         let income = (total2 * price2) - (price1 * total1);
         let percent = (income * 100) / (total1 * price1);
 
-
         percent1 = percent.toFixed(1);
         income1 = income.toFixed(2);
         let income2 = parseFloat(income1);
+        $('img').click(function () {
+            source = $(this).attr('src');
 
+
+        });
 
         switch (source) {
             case 'images/LTC.png':
@@ -205,8 +252,8 @@
                 break;
         }
 
-
-        firestore.collection('values').add({
+        var user = firebase.auth().currentUser;
+        firestore.collection('users').doc(user.uid).collection('orders').add({
             cryptoname: cryptoname,
             priceBuy: price1,
             priceCell: price2,
@@ -217,10 +264,10 @@
             smallCryptoname: smallCryptoname,
             percent: percent1,
             time: firebase.firestore.FieldValue.serverTimestamp(),
-
-
-
         });
+        // firestore.collection('values').add({
+
+        //});
         price1 = "";
         price2 = "";
         cryptoname = "";
@@ -233,6 +280,8 @@
     });
 
 
+
+    //нажатме на сделку
     $(document).on('click', '.data', function () {
         const back = document.querySelector('.back');
         const name = document.querySelector('.name');
@@ -248,11 +297,11 @@
         const orderincome = document.querySelector('.order_income');
         const payments_info = document.querySelector('.array');
         let data = $(this).attr('data-id');
-        let docRef = firestore.doc('values/' + data);
-
+        //        let docRef = firestore.doc('users/' + data);
+        var user = firebase.auth().currentUser;
 
         function output_data() {
-            docRef.get().then(function (doc) {
+            firestore.collection('users').doc(user.uid).collection('orders').doc(data).get().then(function (doc) {
                 if (doc && doc.exists) {
                     let myData = doc.data();
                     small_cryptoname.textContent = myData.smallCryptoname;
@@ -293,93 +342,58 @@
 
 
 
+    ! function () {
+        const mail = document.querySelector(".mail");
+        const mail1 = document.querySelector(".mail1");
+        const pass = document.querySelector(".pass");
+        const pass1 = document.querySelector(".pass1");
 
-    btnLogin.addEventListener('click', function (e) {
-        let email = mail.value;
-        let password = pass.value;
-        const promise = auth.createUserWithEmailAndPassword(email, password).then(cred => {
-            return firestore.collection('users').doc(cred.user.uid).set({
-                mail: mail.value
-            });
-
-
-        }).then(() => {
-            $('.modal2').removeClass('active');
-            e.preventDefault();
-        });
-
-    });
-
-
-    btnSignIn.addEventListener("click", function (e) {
-        let email = mail1.value;
-        let password = pass1.value;
-        const promise = auth.signInWithEmailAndPassword(email, password).then(cred => {
-            $('.modal3').removeClass('active');
-            e.preventDefault();
-        });
-        promise.catch(e => console.log(e.message));
-        console.log('user signed in')
-    });
-    btnLogout.addEventListener("click", function (e) {
-        auth.signOut().then(() => {
-            console.log("user signed Out");
-
-        });
-    });
-
-
-
-    const add_btn = document.querySelector('.main-section_btn');
-    const inlog = document.querySelectorAll('.inlog');
-    const logout = document.querySelector('.logout');
-    const info_text = document.querySelector('.payments-info_text');
-    const user_info = document.querySelector('.user_info');
-    const money = document.querySelector('.array');
-    const setupUI = (user) => {
-        if (user) {
-            user_info.textContent = user.email;
-            $('.user_info').prepend('<img style="width:25px;height:25px;padding:5px" src="images/user.png"/>')
-            inlog.forEach(item => item.style.display = 'none');
-            logout.style.display = "block";
-            add_btn.style.display = "flex";
-            info_text.style.display = "flex";
-            orders.style.display = "block";
-            user_info.style.display = "flex";
-            money.style.display = "flex";
-        } else {
-            inlog.forEach(item => item.style.display = 'block');
-            logout.style.display = "none";
-            add_btn.style.display = "none";
-            info_text.style.display = "none";
-            orders.style.display = "none";
-            user_info.style.display = "none";
-            money.style.display = "none";
-        }
-    }
-
-
-
-    auth.onAuthStateChanged(function (user) {
-        if (user) {
-            setupUI(user);
-            firestore.collection('values').onSnapshot(snapshot => {
-                let changes = snapshot.docChanges();
-                changes.forEach(change => {
-                    if (change.type == 'added') {
-                        renderOrder(change.doc);
-                        calc();
-
-                    }
+        //нажатие на кнопку регистрация
+        btnLogin.addEventListener('click', function (e) {
+            let email = mail.value;
+            let password = pass.value;
+            const promise = auth.createUserWithEmailAndPassword(email, password).then(cred => {
+                firestore.collection('users').doc(cred.user.uid).set({
+                    mail: mail.value
                 });
+
+            }).then(() => {
+                $('.modal2').removeClass('active');
+                e.preventDefault();
             });
 
-        } else {
-            console.log('user log out');
-            setupUI();
+        });
 
-        }
-    });
+        //нажатие на кнопку вход
+        btnSignIn.addEventListener("click", function (e) {
+            let email = mail1.value;
+            let password = pass1.value;
+            const promise = auth.signInWithEmailAndPassword(email, password).then(cred => {
+                $('.modal3').removeClass('active');
+                e.preventDefault();
+            });
+            promise.catch(e => console.log(e.message));
+            console.log('user signed in')
+        });
+
+
+        //нажатие на кнопку выйти
+        btnLogout.addEventListener("click", function (e) {
+            auth.signOut().then(() => {
+                console.log("user signed Out");
+
+            });
+
+            location.reload();
+        });
+    }();
+
+
+
+
+
+
+
 
 
 }());

@@ -3,28 +3,31 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
-
-
-
-
+    <title>CA</title>
+    <meta name="description" content="
+your personal accountant">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-
-
-
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
+    <script>
+        if (window.screen.width >= 756 ) {
+  alert("This version is not full, open with a smartphone")
+}</script>
+
 
     <section class="main-section">
         <div class="main-section_p">
             <p class="user_info"></p>
             <div class="reg">
-                <p class="register inlog">Registration</p>
-                <p class="login inlog">Login</p>
+                <!--
+<p class="register inlog">Registration</p>
+<p class="login inlog">Login</p>
+-->
                 <p class="logout">Log Out</p>
             </div>
         </div>
@@ -35,13 +38,19 @@
         </div>
 
     </section>
-
+    <section class="demo">
+        <img src="images/4_Comment%20regulation%20V1.png" alt="">
+        <h1>Let's start!</h1><button class="lgn">LOGIN</button>
+        <button class="intro">
+            introduction</button>
+    </section>
 
 
     <div class="payments-info">
-        <div class="payments-info_text"><span>This month</span></div>
+        <div class="payments-info_text"><span>Your income</span></div>
         <div class="payments-info_money"><span class="array"></span></div>
     </div>
+
 
     <!--
 <div class="today-info">
@@ -79,8 +88,9 @@
             <div class="carousel-cell"><img class="carousel-cell-img" src="images/XMR.png" alt=""></div>
             <div class="carousel-cell"><img class="carousel-cell-img" src="images/ZEC.png" alt=""></div>
         </div>
-
+        <span style="padding: 20px;" class="checked"></span>
         <div class="inputs">
+
             <div class="group">
                 <input type="number" class="input price1" placeholder="Buy price">
                 <input type="number" class="input colvo1" placeholder="Total">
@@ -141,7 +151,6 @@
         </section>
     </section>
 
-
     <section class="modal2">
         <div class="main_blck_order_toolbar">
             <img style="width: 25px;
@@ -189,8 +198,100 @@
 
 
     </section>
+    <section class="modal4">
+        <div class="main_blck_order_toolbar">
+            <img style="width: 25px;
+            height: 25px;" src="images/left-arrow.png" class="back" alt="">
+        </div>
+
+        <div class="formHeader">
+            <h2>Intro</h2>
+        </div>
+        <img src="" alt="">
+
+
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $('img').click(function() {
+            let cryptoname;
+            let source = $(this).attr('src');
+            switch (source) {
+                case 'images/LTC.png':
+                    cryptoname = "Litecoin";
+                    break;
+                case 'images/BTC.png':
+                    cryptoname = "Bitcoin";
+                    break;
+                case 'images/dash.png':
+                    cryptoname = "Dash";
+                    break;
+                case 'images/NEO.png':
+                    cryptoname = "Neo";
+                    break;
+                case 'images/XRP.png':
+                    cryptoname = "ripple";
+                    break;
+                case 'images/BCH.png':
+                    cryptoname = "bitcoin cash ";
+                    break;
+                case 'images/BNB.png':
+                    cryptoname = "binance coin";
+                    break;
+                case 'images/EOS.png':
+                    cryptoname = "EOS";
+                    break;
+                case 'images/ADA.png':
+                    cryptoname = "Cardano";
+                    break;
+                case 'images/ETC.png':
+                    cryptoname = "Ethereum Classic";
+                    break;
+                case 'images/ETH.png':
+                    cryptoname = "Ethereum ";
+                    break;
+                case 'images/bsv.png':
+                    cryptoname = "Bitcoin Cash SV ";
+                    break;
+                case 'images/DOGE.png':
+                    cryptoname = "Doge Coin ";
+                    break;
+                case 'images/GNT.png':
+                    cryptoname = "Golem ";
+                    break;
+                case 'images/OMG.png':
+                    cryptoname = "OmiseGo ";
+                    break;
+                case 'images/QTUM.png':
+                    cryptoname = "QTUM ";
+                    break;
+                case 'images/WAVES.png':
+                    cryptoname = "WAVES ";
+                    break;
+                case 'images/XEM.png':
+                    cryptoname = "XEM ";
+                    break;
+                case 'images/XLM.png':
+                    cryptoname = "Stellar Lumens ";
+                    break;
+                case 'images/XMR.png':
+                    cryptoname = "Monero ";
+                    break;
+                case 'images/ZEC.png':
+                    cryptoname = "ZCash ";
+                    break;
+                default:
+                    cryptoname = " ";
+            }
+            $('.checked').text('you checked' + " " + cryptoname);
+
+        });
+
+    </script>
+    <script>
+
+    </script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script>
         $('.main-carousel').flickity({
@@ -205,13 +306,14 @@
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-firestore.js"></script>
 
     <script src="js-es5/script.js"></script>
     <script src="js-es5/firebase.js"></script>
-    <script src="js-es5/auth.js"></script>
+
 </body>
 
 </html>
