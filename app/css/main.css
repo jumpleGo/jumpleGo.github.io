@@ -401,10 +401,46 @@ h2 {
   -webkit-flex-direction: row;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: space-aroundf;
-  -webkit-justify-content: space-aroundf;
-      -ms-flex-pack: space-aroundf;
-          justify-content: space-aroundf; }
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+.err {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  color: red;
+  font-weight: 600; }
+
+.done {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  color: green;
+  font-weight: 600; }
 
 .group {
   display: -webkit-box;
@@ -450,6 +486,7 @@ input::-webkit-input-placeholder {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding-left: 20px;
+  padding-right: 20px;
   padding-top: 10px; }
 
 .main_block_order {

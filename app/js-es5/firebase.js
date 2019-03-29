@@ -27,7 +27,7 @@
     const btnSignIn = document.querySelector(".signin-button");
     const btnLogout = document.querySelector(".logout");
     const button = document.querySelector('.buttons_right');
-    let source;
+
 
     function calc() {
         var user = firebase.auth().currentUser;
@@ -37,6 +37,7 @@
             querySnapshot.forEach(function (doc) {
                 totalIncome = parseFloat(totalIncome);
                 totalIncome += doc.data().income;
+                totalIncome.toFixed(2);
             });
             payments_info.textContent = totalIncome;
             $('.array').append('$');
@@ -119,11 +120,11 @@
                 firestore.collection('users').doc(user.uid).collection('orders').onSnapshot(snapshot => {
                     let changes = snapshot.docChanges();
                     changes.forEach(change => {
-                        if (change.type == 'added') {
+                        if (change.type == 'added' || change.type == "removed") {
                             renderOrder(change.doc);
                             calc();
-
                         }
+
                     });
                 });
 
@@ -140,30 +141,26 @@
 
 
 
+    let source;
+    let smallCryptoname;
+    let cryptoname;
 
 
 
+
+
+
+
+
+
+    $('img').click(function () {
+        source = $(this).attr('src');
+
+
+    });
     //нажатие на кнопку добавить ордер
     button.addEventListener("click", function () {
-        let smallCryptoname;
-        let cryptoname;
-        let income1;
-        let percent1;
-        let price1 = document.querySelector('.price1').value;
-        let price2 = document.querySelector('.price2').value;
-        let total1 = document.querySelector('.colvo1').value;
-        let total2 = document.querySelector('.colvo2').value;
-        let income = (total2 * price2) - (price1 * total1);
-        let percent = (income * 100) / (total1 * price1);
 
-        percent1 = percent.toFixed(1);
-        income1 = income.toFixed(2);
-        let income2 = parseFloat(income1);
-        $('img').click(function () {
-            source = $(this).attr('src');
-
-
-        });
 
         switch (source) {
             case 'images/LTC.png':
@@ -251,7 +248,18 @@
                 smallCryptoname = "ZEC";
                 break;
         }
+        let income1;
+        let percent1;
+        let price1 = document.querySelector('.price1').value;
+        let price2 = document.querySelector('.price2').value;
+        let total1 = document.querySelector('.colvo1').value;
+        let total2 = document.querySelector('.colvo2').value;
+        let income = (total2 * price2) - (price1 * total1);
+        let percent = (income * 100) / (total1 * price1);
 
+        percent1 = percent.toFixed(1);
+        income1 = income.toFixed(2);
+        let income2 = parseFloat(income1);
         var user = firebase.auth().currentUser;
         firestore.collection('users').doc(user.uid).collection('orders').add({
             cryptoname: cryptoname,
@@ -326,6 +334,17 @@
                 }
             });
         }
+        const delete_btn = document.querySelector(".delete");
+        delete_btn.addEventListener("click", function (e) {
+
+
+            console.log(data);
+            firestore.collection("users").doc(user.uid).collection("orders").doc(data).delete().then(function () {
+                $('.modal1').removeClass('active');
+                location.reload()
+            })
+
+        });
         back.addEventListener('click', function () {
             $('.main_block_order_percent').removeClass('red');
             $('.main_block_order_percent').removeClass('gray');
@@ -368,21 +387,30 @@
         btnSignIn.addEventListener("click", function (e) {
             let email = mail1.value;
             let password = pass1.value;
+            $(".inp").click(function () {
+                $('.done').text("");
+                $('.err').text("");
+            });
             const promise = auth.signInWithEmailAndPassword(email, password).then(cred => {
-                $('.modal3').removeClass('active');
-                e.preventDefault();
+
+                document.querySelector(".done").innerHTML = "Done! ";
+
+                function close() {
+                    $('.modal3').removeClass('active');
+                    e.preventDefault();
+                }
+                setTimeout(close, 1000);
+            }).catch(function (error) {
+                document.querySelector(".err").innerHTML = "Error! Please, check your login and password"
             });
             promise.catch(e => console.log(e.message));
-            console.log('user signed in')
+
         });
 
 
         //нажатие на кнопку выйти
         btnLogout.addEventListener("click", function (e) {
-            auth.signOut().then(() => {
-                console.log("user signed Out");
-
-            });
+            auth.signOut().then(() => {});
 
             location.reload();
         });

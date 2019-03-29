@@ -306,9 +306,27 @@ h2 {
     padding: 20px;
     display: flex;
     flex-direction: row;
-    justify-content: space-aroundf;
+    justify-content: center;
 
 
+}
+
+.err {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    color: red;
+    font-weight: 600;
+}
+
+.done {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    color: green;
+    font-weight: 600;
 }
 
 .group {
@@ -344,6 +362,7 @@ input::-webkit-input-placeholder {
     flex-direction: row;
     justify-content: space-between;
     padding-left: 20px;
+    padding-right: 20px;
     padding-top: 10px;
 }
 
