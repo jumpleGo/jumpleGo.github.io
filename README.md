@@ -4,4 +4,4 @@
 
 ------
 
-#### Simple aapplication for calculating the income from cryptocurrency trading.
+#### Simple application for calculating the income from cryptocurrency trading.
